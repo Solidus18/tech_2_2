@@ -7,7 +7,7 @@
 class FileOpenException : public std::exception {
 public:
     const char* what() const noexcept override {
-        return "Ошибка открытия файла!";
+        return "Error opening file!";
     }
 };
 
@@ -17,22 +17,21 @@ void processFileForQuotes(const char* filename) {
         throw FileOpenException();
     }
     
-    std::string line;
     std::string sentence;
     bool inQuotes = false;
+    bool foundAnyQuotes = false;
     char ch;
     
-    std::cout << "\n=== Цитаты из файла ===" << std::endl;
+    std::cout << "\nQuotes from file" << std::endl;
     
     while (file.get(ch)) {
         if (ch == '"') {
             if (inQuotes) {
-                // Конец цитаты
-                std::cout << "Цитата: \"" << sentence << "\"" << std::endl;
+                std::cout << "Quote: \"" << sentence << "\"" << std::endl;
                 sentence.clear();
                 inQuotes = false;
+                foundAnyQuotes = true;
             } else {
-                // Начало цитаты
                 inQuotes = true;
                 sentence.clear();
             }
@@ -43,7 +42,12 @@ void processFileForQuotes(const char* filename) {
     
     file.close();
     
-    if (sentence.empty() && !inQuotes) {
-        std::cout << "Цитаты в файле не найдены." << std::endl;
+    if (inQuotes && !sentence.empty()) {
+        std::cout << "Warning: Unclosed quote found: \"" << sentence << "\"" << std::endl;
+        foundAnyQuotes = true;
+    }
+    
+    if (!foundAnyQuotes) {
+        std::cout << "No quotes found in the file." << std::endl;
     }
 }

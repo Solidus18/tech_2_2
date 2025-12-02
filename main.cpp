@@ -1,47 +1,45 @@
 #include <iostream>
 #include <cstring>
+#include <conio.h>
 #include "fileProcessor.h"
 
 void displayMenu() {
-    std::cout << "\n=== Обработка текстовых файлов ===" << std::endl;
-    std::cout << "1. Найти и вывести цитаты из файла" << std::endl;
-    std::cout << "2. Выход" << std::endl;
-    std::cout << "Выберите опцию: ";
+    std::cout << "\nProcessing of text files" << std::endl;
+    std::cout << "1. Find and output quotes from a file" << std::endl;
+    std::cout << "2. Exit\n" << std::endl;
 }
 
 int main() {
-    int choice;
+    char choice;
     
-    std::cout << "Программа для поиска цитат в текстовых файлах" << std::endl;
-    std::cout << "Цитаты - это предложения, заключенные в кавычки" << std::endl;
+    std::cout << "A program for searching quotes in text files" << std::endl;
     
     do {
         displayMenu();
-        std::cin >> choice;
+        choice = _getch();
         
         try {
             switch (choice) {
-                case 1: {
+                case '1': {
                     char filename[100];
-                    std::cout << "Введите имя файла для обработки: ";
+                    std::cout << "Enter the name of the file to process: ";
                     std::cin >> filename;
                     processFileForQuotes(filename);
                     break;
                 }
-                case 2: {
-                    std::cout << "Выход из программы..." << std::endl;
+                case '2': {
+                    std::cout << "Exiting the program..." << std::endl;
                     break;
                 }
                 default: {
-                    std::cout << "Неверный выбор! Попробуйте снова." << std::endl;
                     break;
                 }
             }
         } catch (const std::exception& e) {
-            std::cout << "Ошибка: " << e.what() << std::endl;
+            std::cout << "Error: " << e.what() << std::endl;
         }
         
-    } while (choice != 2);
+    } while (choice != '2');
     
     return 0;
 }
