@@ -1,6 +1,6 @@
-#ifndef FILEPROCESSOR_H
-#define FILEPROCESSOR_H
+#ifndef FILEPROCESSOR_H  
+#define FILEPROCESSOR_H  
 
-void processFileForQuotes(const char* filename);
+void processFileForQuotes(const char* filename); // Объявление функции обработки файла
 
-#endif
+#endif 
